@@ -1,10 +1,11 @@
 import { DataGrid, DataGridColumn } from '@absence-management/ui';
+import { useGetLeaves } from '../../api-hooks';
 import { Leave } from '../../types';
 import LeaveDetails from '../leave-details/LeaveDetails';
 import { statusNumToString } from '@/api/helper/leaves';
 
 export function LeaveList() {
-  const data = [] as Leave[];
+  const { data, isLoading } = useGetLeaves();
   const columns: DataGridColumn<Leave>[] = [
     {
       field: 'leaveDate',
@@ -22,7 +23,15 @@ export function LeaveList() {
       headerName: 'Status',
       value: (leave) => statusNumToString(leave.status),
     },
+    { field: 'user', headerName: 'User', value: (leave) => leave.user.name },
+    {
+      field: 'approvedBy',
+      headerName: 'Approved By',
+      value: (leave) => leave.approvedBy?.name || '',
+    },
   ];
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <DataGrid
