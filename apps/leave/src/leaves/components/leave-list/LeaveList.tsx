@@ -1,9 +1,10 @@
-import { Leave } from '../../types';
+import { useGetLeaves } from '../../api-hooks';
 import LeaveItem from '../leave-item/LeaveItem';
 
 export function LeaveList() {
-  const leaves: Leave[] = [];
+  const { data: leaves, isLoading } = useGetLeaves();
 
+  if (isLoading) return <div>Loading...</div>;
   if (!leaves || leaves.length === 0) return <div>No leaves found.</div>;
 
   return (

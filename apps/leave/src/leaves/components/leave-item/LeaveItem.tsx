@@ -3,7 +3,9 @@ import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 import { Leave, Status } from '../../types';
 import { useState } from 'react';
+import * as api from '../../api';
 import toast from 'react-hot-toast';
+import { useGetLeaves } from '../../api-hooks';
 import { statusNumToString } from '@/api/helper/leaves';
 
 const statusColor = (status: Leave['status']) => {
@@ -18,6 +20,7 @@ const statusColor = (status: Leave['status']) => {
 };
 
 export function LeaveItem({ id, status, leaveDate, reason }: Leave) {
+  const { mutate } = useGetLeaves();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const closeDeleteDialog = () => setIsDeleteDialogOpen(false);
@@ -25,6 +28,17 @@ export function LeaveItem({ id, status, leaveDate, reason }: Leave) {
   const openDeleteDialog = () => setIsDeleteDialogOpen(true);
 
   const deleteLeave = async () => {
+    await api.deleteLeave(id);
+    mutate(
+      (leaves) => {
+        if (!leaves) return leaves;
+
+        const index = leaves.findIndex((l) => l.id === id);
+
+        return [...leaves.slice(0, index), ...leaves.slice(index + 1)];
+      },
+      { revalidate: false }
+    );
     toast.success('You leave has already been deleted.');
     closeDeleteDialog();
   };
@@ -60,19 +74,6 @@ export function LeaveItem({ id, status, leaveDate, reason }: Leave) {
           </h3>
           <p className="my-4 font-light">{reason}</p>
         </blockquote>
-        <figcaption className="flex items-center justify-center space-x-3">
-          {/* <img
-            className="h-9 w-9 rounded-full"
-            src={avatarImage}
-            alt="profile"
-          ></img> */}
-          <div className="space-y-0.5 text-left font-medium dark:text-white">
-            <div>Lorem</div>
-            <div className="text-sm font-light text-gray-500 dark:text-gray-400">
-              {status === Status.Approved ? 'Approved' : 'Rejected'} By
-            </div>
-          </div>
-        </figcaption>
       </figure>
       <Dialog
         isOpen={isDeleteDialogOpen}
