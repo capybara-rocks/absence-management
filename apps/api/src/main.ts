@@ -6,6 +6,7 @@ import { setup as setupRoutes } from './route';
 import bodyParser from 'body-parser';
 import errorHandler from './middleware/error-handler';
 import responseTransformer from './middleware/response-transformer';
+import { redis } from './middleware/cache-handler';
 
 async function setup() {
   dotenv.config();
@@ -20,6 +21,7 @@ async function setup() {
     })
   );
   app.use(responseTransformer);
+  app.use(redis);
   setupRoutes(app);
   app.use(errorHandler);
 
