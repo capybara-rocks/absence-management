@@ -1,5 +1,7 @@
 import { Leave, Status } from '@/api/entity/Leave';
-import { Expose } from 'class-transformer';
+import { User } from '@/api/entity/User';
+import { Expose, Type } from 'class-transformer';
+import { UserResponseDto } from '../users/UserResponseDto';
 
 export class LeaveResponseDto {
   @Expose()
@@ -13,6 +15,14 @@ export class LeaveResponseDto {
 
   @Expose()
   leaveDate: string;
+
+  @Expose()
+  @Type(() => UserResponseDto)
+  user: User;
+
+  @Expose()
+  @Type(() => UserResponseDto)
+  approvedBy: User;
 
   constructor(leave: Leave) {
     Object.assign(this, leave);

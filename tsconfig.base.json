@@ -10,30 +10,17 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/api/*": [
-        "apps/api/src/*"
-      ],
-      "@/leave/*": [
-        "apps/leave/src/*"
-      ],
-      "@absence-management/fetcher": [
-        "libs/fetcher/src/index.ts"
-      ],
-      "@absence-management/ui": [
-        "libs/ui/src/index.ts"
-      ]
+      "@/api/*": ["apps/api/src/*"],
+      "@/leave/*": ["apps/leave/src/*"],
+      "@absence-management/auth": ["libs/auth/src/index.ts"],
+      "@absence-management/fetcher": ["libs/fetcher/src/index.ts"],
+      "@absence-management/ui": ["libs/ui/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

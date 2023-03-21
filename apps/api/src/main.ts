@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { AppDataSource } from './data/data-source';
 import { setup as setupRoutes } from './route';
+import { setup as setupAuth } from './helper/auth';
 import bodyParser from 'body-parser';
 import errorHandler from './middleware/error-handler';
 import responseTransformer from './middleware/response-transformer';
@@ -24,6 +25,7 @@ async function setup() {
     })
   );
   app.use(responseTransformer);
+  setupAuth();
   setupRoutes(app);
   app.use(errorHandler);
 

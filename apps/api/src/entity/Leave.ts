@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { User } from './User';
 
 export enum Status {
   Pending,
@@ -22,4 +31,33 @@ export class Leave {
 
   @Column()
   leaveDate: Date;
+
+  @Column({ nullable: true })
+  rejectionReason?: string;
+
+  @Column({ type: 'int', nullable: false })
+  userId: number;
+
+  @Column({ type: 'int', nullable: true })
+  approvedById?: number;
+
+  @ManyToOne(() => User, (user) => user.leaves, {
+    nullable: false,
+    eager: true,
+  })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @ManyToOne(() => User, (user) => user.managedLeaves, {
+    nullable: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'approvedById' })
+  approvedBy: User;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

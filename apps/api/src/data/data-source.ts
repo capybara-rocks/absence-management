@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 
 import config from '../config';
 import { Leave } from '../entity/Leave';
+import { User } from '../entity/User';
 import migrations from '../migration';
 
 export const AppDataSource = new DataSource({
@@ -14,8 +15,10 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: true,
   subscribers: [],
-  entities: [Leave],
+  entities: [User, Leave],
   migrations,
+  // entities: [`${__dirname}/entity/*{.js,.ts}`],
+  // migrations: [`${__dirname}/migration/*{.js,.ts}`],
   extra: {
     trustServerCertificate: true,
     trustedConnection: true,
