@@ -6,15 +6,27 @@ import logo from '@/leave/assets/images/logo.png';
 import {
   AuthMenu,
   ProtectedResource,
+  useAuth,
   useRefreshToken,
 } from '@absence-management/auth';
+import { useAuthHandler } from '@absence-management/fetcher';
 
 export interface LayoutProps {
   children: ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
-  useRefreshToken();
+  const handleRefreshToken = useRefreshToken();
+  const { logout } = useAuth();
+
+  useAuthHandler({
+    onUnAuthorized() {
+      handleRefreshToken();
+    },
+    onRefreshTokenExpired() {
+      logout();
+    },
+  });
 
   return (
     <>

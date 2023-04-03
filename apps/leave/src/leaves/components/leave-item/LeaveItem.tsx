@@ -1,4 +1,6 @@
 import { Badge, Dialog } from '@absence-management/ui';
+import { avatarUrl } from '@absence-management/auth';
+import avatarImage from '../../../../../../libs/auth/src/assets/images/avatar.jpg';
 import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 import { Leave, Status } from '../../types';
@@ -19,7 +21,13 @@ const statusColor = (status: Leave['status']) => {
   }
 };
 
-export function LeaveItem({ id, status, leaveDate, reason }: Leave) {
+export function LeaveItem({
+  id,
+  status,
+  leaveDate,
+  reason,
+  approvedBy,
+}: Leave) {
   const { mutate } = useGetLeaves();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
@@ -33,9 +41,7 @@ export function LeaveItem({ id, status, leaveDate, reason }: Leave) {
       (leaves) => {
         if (!leaves) return leaves;
 
-        const index = leaves.findIndex((l) => l.id === id);
-
-        return [...leaves.slice(0, index), ...leaves.slice(index + 1)];
+        return leaves.filter((l) => l.id !== id);
       },
       { revalidate: false }
     );
@@ -74,9 +80,28 @@ export function LeaveItem({ id, status, leaveDate, reason }: Leave) {
           </h3>
           <p className="my-4 font-light">{reason}</p>
         </blockquote>
+        {approvedBy && (
+          <figcaption className="flex items-center justify-center space-x-3">
+            <img
+              className="h-9 w-9 rounded-full"
+              src={
+                approvedBy.avatar ? avatarUrl(approvedBy.avatar) : avatarImage
+              }
+              alt="profile"
+            ></img>
+            <div className="space-y-0.5 text-left font-medium dark:text-white">
+              <div>{approvedBy.name}</div>
+              <div className="text-sm font-light text-gray-500 dark:text-gray-400">
+                {status === Status.Approved ? 'Approved' : 'Rejected'} By
+              </div>
+            </div>
+          </figcaption>
+        )}
       </figure>
       <Dialog
         isOpen={isDeleteDialogOpen}
+        title="Are you sure?"
+        content="There is no way to undo the removing process."
         acceptTitle="Delete"
         rejectTitle="Cancel"
         onAccept={deleteLeave}

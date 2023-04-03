@@ -24,4 +24,6 @@ export const useRefreshToken = () => {
   useEffect(() => {
     handleRefreshToken();
   }, [handleRefreshToken]);
+
+  return handleRefreshToken;
 };

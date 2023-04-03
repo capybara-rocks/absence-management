@@ -3,18 +3,21 @@ import * as api from '../../api';
 import LeaveForm from '../leave-form/LeaveForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useGetLeave } from '../../api-hooks';
+import { useGetLeave, useGetLeaves } from '../../api-hooks';
 
 export function EditLeave() {
   const params = useParams<{ id: string }>();
   const id = params.id as string;
   const navigate = useNavigate();
-  const { data: leave } = useGetLeave(id);
+  const { data: leave, mutate: mutateGetLeave } = useGetLeave(id);
+  const { mutate: mutateGetLeaves } = useGetLeaves();
 
   const editLeave = async (leave: types.EditLeave) => {
-    await api.editLeave(id, leave);
+    const updatedLeave = await api.editLeave(id, leave);
 
     toast.success('You request has already been updated.');
+    mutateGetLeave(() => updatedLeave, { revalidate: false });
+    mutateGetLeaves();
     navigate('/leaves');
   };
 

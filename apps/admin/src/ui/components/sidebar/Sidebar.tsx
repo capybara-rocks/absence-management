@@ -3,6 +3,7 @@ import { ProtectedResource, useAuth } from '@absence-management/auth';
 import {
   Cog8ToothIcon,
   ArrowRightOnRectangleIcon,
+  ArrowLeftOnRectangleIcon,
   RectangleGroupIcon,
   UsersIcon,
   QueueListIcon,
@@ -18,7 +19,8 @@ const getClassName: Exclude<NavLinkProps['className'], string> = ({
 };
 
 export function Sidebar() {
-  const { logout } = useAuth();
+  const { logout, auth } = useAuth();
+  const isLoggedIn = auth.isLoaded && auth.accessToken;
 
   return (
     <div className="flex h-screen w-16 flex-col justify-between border-r bg-white">
@@ -76,15 +78,27 @@ export function Sidebar() {
               Profile
             </span>
           </NavLink>
-          <button
-            className="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            onClick={logout}
-          >
-            <ArrowRightOnRectangleIcon className="w-5"></ArrowRightOnRectangleIcon>
-            <span className="absolute left-full top-1/2 z-50 ml-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100">
-              Sign Out
-            </span>
-          </button>
+          {isLoggedIn ? (
+            <button
+              className="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+              onClick={logout}
+            >
+              <ArrowRightOnRectangleIcon className="w-5"></ArrowRightOnRectangleIcon>
+              <span className="absolute left-full top-1/2 z-50 ml-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100">
+                Sign Out
+              </span>
+            </button>
+          ) : (
+            <Link
+              to="/auth/sign-in"
+              className="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+            >
+              <ArrowLeftOnRectangleIcon className="w-5"></ArrowLeftOnRectangleIcon>
+              <span className="absolute left-full top-1/2 z-50 ml-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100">
+                Sign In
+              </span>
+            </Link>
+          )}
         </div>
       </ProtectedResource>
     </div>

@@ -13,6 +13,7 @@ import '../styles.css';
 import LeaveList from '../leaves/components/leave-list/LeaveList';
 import CreateLeave from '../leaves/components/create-leave/CreateLeave';
 import EditLeave from '../leaves/components/edit-leave/EditLeave';
+import LeaveLayout from '../leaves/components/leave-layout/LeaveLayout';
 
 export function App() {
   const handleAuthChanged = ({ accessToken }: AuthContextValueType) => {
@@ -29,7 +30,14 @@ export function App() {
             <Route path="sign-in" element={<Login />}></Route>
             <Route path="profile" element={<Profile />}></Route>
           </Route>
-          <Route path="/leaves" element={<ProtectedRoute></ProtectedRoute>}>
+          <Route
+            path="/leaves"
+            element={
+              <ProtectedRoute>
+                <LeaveLayout></LeaveLayout>
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<LeaveList />}></Route>
             <Route path="new" element={<CreateLeave />}></Route>
             <Route path=":id/edit" element={<EditLeave />}></Route>

@@ -99,12 +99,14 @@
     "react-hot-toast": "^2.4.0",
     "react-router-dom": "6.4.3",
     "react-tailwindcss-datepicker": "^1.5.1",
+    "react-use": "^17.4.0",
     "redis": "^4.6.5",
     "reflect-metadata": "^0.1.13",
     "swr": "^2.0.4",
     "tailwind-merge": "^1.10.0",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.12",
+    "use-debounce": "^9.0.3",
     "zod": "^3.20.6"
   }
 }

@@ -1,3 +1,4 @@
+export * from './lib/floating-action-button/FloatingActionButton';
 export * from './lib/data-grid-item/DataGridItem';
 export * from './lib/data-grid/DataGrid';
 export * from './lib/dialog/Dialog';

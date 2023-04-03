@@ -1,3 +1,4 @@
+import { UserProfile } from 'libs/auth/src/lib/types';
 import * as z from 'zod';
 import { createLeave, editLeave } from './schemas';
 
@@ -17,6 +18,8 @@ export interface Leave {
   reason: string;
   leaveDate: string;
   rejectionReason?: string;
+  user: UserProfile;
+  approvedBy?: UserProfile;
   createdAt: string;
   updatedAt: string;
 }

@@ -24,17 +24,12 @@ export const register: RequestHandler[] = [
 
 export const login: RequestHandler[] = [
   authenticator.signIn,
-  async (req, res, next) => {
+  async (req, res) => {
     const user = req.user;
-
-    req.login(user, { session: false }, async (error) => {
-      if (error) return next(error);
-
-      const { accessToken, refreshToken } = authService.signAndSaveTokens(user);
-      return res
-        .status(HTTP_STATUSES.CREATED)
-        .json(new LoginResponseDto(accessToken, refreshToken, user));
-    });
+    const { accessToken, refreshToken } = authService.signAndSaveTokens(user);
+    return res
+      .status(HTTP_STATUSES.CREATED)
+      .json(new LoginResponseDto(accessToken, refreshToken, user));
   },
 ];
 

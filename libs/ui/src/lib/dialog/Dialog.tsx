@@ -3,6 +3,8 @@ import { Dialog as UiDialog, Transition } from '@headlessui/react';
 
 export interface DialogProps {
   isOpen: boolean;
+  title: string;
+  content: string;
   acceptTitle: string;
   rejectTitle?: string;
   onAccept: () => void;
@@ -12,6 +14,8 @@ export interface DialogProps {
 
 export function Dialog({
   isOpen,
+  title,
+  content,
   acceptTitle,
   rejectTitle,
   onAccept,
@@ -49,13 +53,10 @@ export function Dialog({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Payment successful
+                  {title}
                 </UiDialog.Title>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Your payment has been successfully submitted. We've sent you
-                    an email with all of the details of your order.
-                  </p>
+                  <p className="text-sm text-gray-500">{content}</p>
                 </div>
 
                 <div className="mt-4">
