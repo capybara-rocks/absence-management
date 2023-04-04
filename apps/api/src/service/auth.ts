@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../config';
-import { AppDataSource } from '../data/data-source';
+import { AppDataSource } from '@/api/data/data-source';
 import { User } from '../entity/User';
 
 const userRepository = AppDataSource.getRepository(User);

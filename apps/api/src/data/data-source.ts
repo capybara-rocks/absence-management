@@ -28,3 +28,7 @@ export const AppDataSource = new DataSource({
     encrypt: true,
   },
 });
+
+export const repositories = {
+  leave: AppDataSource.getRepository(Leave),
+};

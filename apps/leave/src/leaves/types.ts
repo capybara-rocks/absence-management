@@ -20,6 +20,4 @@ export interface Leave {
   rejectionReason?: string;
   user: UserProfile;
   approvedBy?: UserProfile;
-  createdAt: string;
-  updatedAt: string;
 }

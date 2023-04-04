@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import * as path from 'path';
-import { AppDataSource } from '../data/data-source';
+import { AppDataSource } from '@/api/data/data-source';
 import { User } from '../entity/User';
 
 const userRepository = AppDataSource.getRepository(User);

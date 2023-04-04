@@ -157,7 +157,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-03-17T11:45:24.107Z",
-    "modified": "2023-03-19T13:36:52.306Z",
+    "modified": "2023-04-03T11:44:19.873Z",
     "headers": [],
     "params": [],
     "body": {
@@ -181,6 +181,30 @@
     "sortNum": 30000,
     "created": "2023-03-19T09:21:31.428Z",
     "modified": "2023-03-21T16:38:35.867Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "2",
+        "isPath": true
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{access_token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "e88250d2-4a87-4620-b152-0b22822dae05",
+    "colId": "12af3609-7b2a-4a32-b549-86bcf28547ee",
+    "containerId": "",
+    "name": "GET /leaves/:id",
+    "url": "{{baseUrl}}/leaves/{id}",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-04-04T00:31:16.247Z",
+    "modified": "2023-04-04T00:31:44.443Z",
     "headers": [],
     "params": [
       {

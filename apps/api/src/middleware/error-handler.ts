@@ -1,7 +1,7 @@
 import { ErrorRequestHandler } from 'express';
 import { QueryFailedError } from 'typeorm';
 import { ForbiddenError } from '../error/ForbiddenError';
-import { ValidationError } from '../error/ValidationError';
+import { ValidationError } from '@/api/error/ValidationError';
 import { HTTP_STATUSES } from '../helper/http-statuses';
 
 const errorHandler: ErrorRequestHandler = (err, _req, res, next) => {

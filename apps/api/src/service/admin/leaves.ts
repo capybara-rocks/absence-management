@@ -1,4 +1,4 @@
-import { AppDataSource } from '../../data/data-source';
+import { AppDataSource } from '@/api/data/data-source';
 import { Leave, Status } from '../../entity/Leave';
 
 const leaveRepository = AppDataSource.getRepository(Leave);

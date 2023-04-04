@@ -10,7 +10,7 @@ import {
 import { AppDataSource } from '@/api/data/data-source';
 import { User } from '@/api/entity/User';
 import { SignUpFormDto } from '../dto/auth/SignUpFormDto';
-import config from '../config';
+import config from '@/api/config';
 
 export const setup = () => {
   const userRepository = AppDataSource.getRepository(User);

@@ -7,6 +7,7 @@ import * as authenticator from '@/api/middleware/authenticator';
 import { EditLeaveFormDto } from '../dto/leaves/EditLeaveFormDto';
 import { HTTP_STATUSES } from '../helper/http-statuses';
 import { ForbiddenError } from '../error/ForbiddenError';
+import { HttpStatusCode } from 'axios';
 
 const validateOwner: RequestHandler = async (req, res, next) => {
   const leave = await service.findOne(+req.params.id);
@@ -41,7 +42,7 @@ export const create: RequestHandler[] = [
   async (req, res) => {
     const leave = await service.create(req.userFromToken.id, req.body);
 
-    res.json(new LeaveResponseDto(leave));
+    res.status(HttpStatusCode.Created).json(new LeaveResponseDto(leave));
   },
 ];
 
